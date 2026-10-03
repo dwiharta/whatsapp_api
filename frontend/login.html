@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Login - API WhatsApp</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Arial,sans-serif;background:linear-gradient(135deg,#111827,#2563eb);display:flex;align-items:center;justify-content:center;padding:20px}.card{width:100%;max-width:420px;background:#fff;border-radius:20px;padding:34px;box-shadow:0 20px 60px #0004}h1{margin:0 0 8px;color:#111827}p{color:#667085;margin-bottom:25px}label{display:block;font-weight:bold;margin:15px 0 7px}input{width:100%;padding:14px;border:1px solid #d0d5dd;border-radius:10px;font-size:15px}button{width:100%;margin-top:22px;padding:14px;border:0;border-radius:10px;background:#2563eb;color:#fff;font-size:16px;font-weight:bold;cursor:pointer}button:disabled{opacity:.65;cursor:not-allowed}.footer{text-align:center;margin-top:20px;color:#667085}a{color:#2563eb;text-decoration:none;font-weight:bold}.error{display:none;margin-top:15px;padding:11px;border-radius:9px;background:#fee2e2;color:#991b1b}
+</style></head><body><div class="card"><h1>Login</h1><p>Masuk ke dashboard akun Anda.</p><form id="formLogin"><label>Email</label><input type="email" name="email" required><label>Password</label><input type="password" name="password" required><button type="submit">Masuk</button></form><div id="error" class="error"></div><div class="footer">Belum punya akun? <a href="register.html">Daftar sekarang</a></div></div>
+<script src="config.js"></script><script>
+const form=document.getElementById('formLogin'),errorBox=document.getElementById('error');
+function showError(t){errorBox.textContent=t;errorBox.style.display='block'}
+form.addEventListener('submit',async e=>{e.preventDefault();errorBox.style.display='none';const b=form.querySelector('button');b.disabled=true;b.textContent='Memproses...';try{const r=await fetch(API_BASE+'/api/login.php',{method:'POST',body:new FormData(form),credentials:'include'});const x=await r.json();if(x.status==='success')location.href='dashboard.html';else showError(x.message||'Login gagal.')}catch(err){showError('Tidak dapat terhubung ke backend. Periksa API_BASE dan CORS.')}finally{b.disabled=false;b.textContent='Masuk'}});
+</script></body></html>

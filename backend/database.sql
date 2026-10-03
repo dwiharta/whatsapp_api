@@ -1,0 +1,23 @@
+CREATE DATABASE IF NOT EXISTS api_wa_fonnte
+CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE api_wa_fonnte;
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    no_hp VARCHAR(20) NOT NULL,
+    alamat TEXT,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS log_whatsapp (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    no_tujuan VARCHAR(20) NOT NULL,
+    pesan TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    response TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
